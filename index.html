@@ -164,6 +164,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
   margin-top: 2.8rem;
   opacity: 0;
   animation: fadeUp 0.9s ease 1.2s forwards;
+  flex-wrap: wrap;
 }
 
 .date-block { text-align: center; }
@@ -250,12 +251,15 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
 .gallery-scroll {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
   cursor: grab;
+  user-select: none;
   scrollbar-width: none;
   padding: 1rem 2rem 2rem;
 }
+.gallery-scroll, .gallery-scroll * { cursor: grab; }
 .gallery-scroll::-webkit-scrollbar { display: none; }
-.gallery-scroll:active { cursor: grabbing; }
+.gallery-scroll:active, .gallery-scroll *:active { cursor: grabbing; }
 
 .gallery-row {
   display: flex;
@@ -438,7 +442,6 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
   line-height: 1.7;
 }
 
-/* ── CLOSING ── */
 /* ── REFLECTION ── */
 .reflection-section {
   padding: 5rem 2rem;
@@ -507,13 +510,10 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
   font-weight: 300;
   color: rgba(255,255,255,0.75);
   margin-top: 1.5rem;
-  white-space: nowrap;
-  overflow-wrap: normal;
-  word-break: normal;
-  max-width: none;
+  line-height: 1.6;
+  max-width: 600px;
   margin-left: auto;
   margin-right: auto;
-  line-height: 1.6;
 }
 
 .closing-hearts {
@@ -545,9 +545,94 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
   to { opacity: 1; transform: scale(1); }
 }
 
+/* ── MOBILE RESPONSIVE ── */
 @media (max-width: 600px) {
-  .polaroid { width: 200px !important; }
-  .date-num { font-size: 2rem; }
+  /* Hero adjustments */
+  .hero { padding: 2rem 1.5rem 4rem; }
+  
+  .since-pill {
+    font-size: 0.65rem;
+    padding: 6px 14px;
+    margin-bottom: 1.5rem;
+  }
+  
+  .hero-date-strip {
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  
+  .date-num { font-size: 1.8rem; }
+  
+  .date-sep { 
+    font-size: 1.2rem;
+    display: none; /* Hide separators on very small screens */
+  }
+  
+  /* Gallery adjustments */
+  .gallery-section { padding: 4rem 0 3rem; }
+  
+  .polaroid { 
+    width: 200px !important; 
+    padding: 10px 10px 35px;
+  }
+  
+  .polaroid-caption { height: 35px; }
+  
+  .polaroid-text { font-size: 0.75rem; }
+  
+  /* Counter strip */
+  .counter-strip {
+    padding: 3rem 1.5rem;
+    gap: 1.5rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .count-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.18em;
+  }
+  
+  /* Notes grid */
+  .notes-section { padding: 4rem 1.5rem; }
+  
+  .notes-grid {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+  
+  .note-card { padding: 1.5rem 1.3rem; }
+  
+  .note-text { font-size: 1rem; }
+  
+  /* Reflection */
+  .reflection-section { padding: 4rem 1.5rem; }
+  
+  /* Closing */
+  .closing { padding: 5rem 1.5rem 4rem; }
+  
+  .closing-msg {
+    padding: 0 1rem;
+  }
+}
+
+/* Extra small phones */
+@media (max-width: 380px) {
+  .hero-date-strip {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  
+  .date-sep { display: none; }
+  
+  .polaroid { width: 180px !important; }
+  
+  .counter-strip {
+    grid-template-columns: 1fr;
+  }
+  
+  .notes-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
 </head>
@@ -805,10 +890,13 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
   // Gallery drag + nav
   const scroll = document.getElementById('galleryScroll');
   let isDown = false, startX, sl;
-  scroll.addEventListener('mousedown', e => { isDown = true; startX = e.pageX - scroll.offsetLeft; sl = scroll.scrollLeft; });
-  scroll.addEventListener('mouseleave', () => isDown = false);
-  scroll.addEventListener('mouseup', () => isDown = false);
-  scroll.addEventListener('mousemove', e => {
+  scroll.addEventListener('mousedown', e => {
+    isDown = true;
+    startX = e.pageX - scroll.offsetLeft;
+    sl = scroll.scrollLeft;
+  });
+  document.addEventListener('mouseup', () => { isDown = false; });
+  document.addEventListener('mousemove', e => {
     if (!isDown) return;
     e.preventDefault();
     scroll.scrollLeft = sl - (e.pageX - scroll.offsetLeft - startX);
