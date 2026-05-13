@@ -40,16 +40,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
 .hero-photo {
   position: absolute;
   inset: 0;
-  background: 
-    radial-gradient(circle at 30% 50%, rgba(211, 102, 122, 0.4) 0%, transparent 50%),
-    radial-gradient(circle at 70% 50%, rgba(164, 117, 188, 0.3) 0%, transparent 50%),
-    linear-gradient(135deg, #2a0f1b 0%, #ea7baf 50%, #2a1a2e 100%);
-  background-size: 
-    400% 400%,  
-    400% 400%,
-    100% 100%;
-  opacity: 0;
-  animation: photoReveal 1.8s ease 0.2s forwards;
+  background: linear-gradient(135deg, #ffb3c1 0%, #ff8fab 25%, #fb6f92 50%, #e8617a 75%, #d14a5d 100%);
 }
 
 .hero-overlay {
@@ -61,6 +52,31 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
     rgba(20, 8, 14, 0.45) 50%,
     rgba(20, 8, 14, 0.72) 100%
   );
+}
+
+.hero-slideshow {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  animation: photoReveal 1.8s ease 0.2s forwards;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+}
+
+.slide.active {
+  opacity: 0.4;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(1px) brightness(0.8);
 }
 
 @keyframes photoReveal {
@@ -539,6 +555,37 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
   <div class="hero-photo"></div>
   <div class="hero-overlay"></div>
 
+  <!-- Photo Slideshow -->
+  <div class="hero-slideshow">
+    <div class="slide active">
+      <img src="photo7.jpg" alt="Memory photo 7">
+    </div>
+    <div class="slide">
+      <img src="photo8.jpg" alt="Memory photo 8">
+    </div>
+    <div class="slide">
+      <img src="photo9.jpg" alt="Memory photo 9">
+    </div>
+    <div class="slide">
+      <img src="photo10.jpg" alt="Memory photo 10">
+    </div>
+    <div class="slide">
+      <img src="photo11.jpg" alt="Memory photo 11">
+    </div>
+    <div class="slide">
+      <img src="photo12.jpg" alt="Memory photo 12">
+    </div>
+    <div class="slide">
+      <img src="photo13.jpg" alt="Memory photo 13">
+    </div>
+    <div class="slide">
+      <img src="photo14.jpg" alt="Memory photo 14">
+    </div>
+    <div class="slide">
+      <img src="photo15.jpg" alt="Memory photo 15">
+    </div>
+  </div>
+
   <div class="hero-inner">
     <div class="since-pill">Since May 18, 2018</div>
 
@@ -796,6 +843,25 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
     currentCard = Math.min(idx, totalCards - 1);
     updateDots(currentCard);
   });
+
+  // Hero Slideshow
+  const slides = document.querySelectorAll('.slide');
+  let currentSlide = 0;
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === index);
+    });
+  }
+
+  function nextSlide() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+  }
+
+  // Start slideshow
+  showSlide(0);
+  setInterval(nextSlide, 4000); // Change slide every 4 seconds
 </script>
 </body>
 </html>
