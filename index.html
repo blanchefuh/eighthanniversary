@@ -545,6 +545,64 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
   to { opacity: 1; transform: scale(1); }
 }
 
+/* ── MUSIC TOGGLE ── */
+.music-toggle {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--pink);
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(232, 97, 122, 0.4), 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(.34,1.2,.64,1);
+  animation: popIn 0.6s cubic-bezier(.34,1.56,.64,1) 2.5s forwards;
+  opacity: 0;
+}
+
+.music-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 28px rgba(232, 97, 122, 0.5), 0 3px 12px rgba(0, 0, 0, 0.15);
+}
+
+.music-toggle:active {
+  transform: scale(0.95);
+}
+
+.music-icon {
+  width: 24px;
+  height: 24px;
+  color: white;
+  position: absolute;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.music-toggle .play-icon {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.music-toggle .pause-icon {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.music-toggle.playing .play-icon {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.music-toggle.playing .pause-icon {
+  opacity: 1;
+  transform: scale(1);
+}
+
 /* ── MOBILE RESPONSIVE ── */
 @media (max-width: 600px) {
   /* Hero adjustments */
@@ -613,6 +671,19 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
   .closing-msg {
     padding: 0 1rem;
   }
+  
+  /* Music toggle */
+  .music-toggle {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 50px;
+    height: 50px;
+  }
+  
+  .music-icon {
+    width: 20px;
+    height: 20px;
+  }
 }
 
 /* Extra small phones */
@@ -637,6 +708,23 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
 </style>
 </head>
 <body>
+
+<!-- Background Music -->
+<audio id="bgMusic" loop>
+  <source src="background-music.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<!-- Music Control Button -->
+<button id="musicToggle" class="music-toggle" aria-label="Toggle music">
+  <svg class="music-icon play-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+  </svg>
+  <svg class="music-icon pause-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <rect x="6" y="4" width="4" height="16"></rect>
+    <rect x="14" y="4" width="4" height="16"></rect>
+  </svg>
+</button>
 
 <!-- HERO -->
 <section class="hero" id="hero">
@@ -954,7 +1042,46 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
 
   // Start slideshow
   showSlide(0);
-  setInterval(nextSlide, 4000); // Change slide every 4 seconds
+  setInterval(nextSlide, 3000); // Change slide every 3 seconds
+
+  // Background Music Control
+  const bgMusic = document.getElementById('bgMusic');
+  const musicToggle = document.getElementById('musicToggle');
+  let isPlaying = false;
+
+  // Function to toggle music
+  function toggleMusic() {
+    if (isPlaying) {
+      bgMusic.pause();
+      musicToggle.classList.remove('playing');
+      isPlaying = false;
+    } else {
+      bgMusic.play().catch(e => {
+        console.log('Audio play failed:', e);
+      });
+      musicToggle.classList.add('playing');
+      isPlaying = true;
+    }
+  }
+
+  // Music toggle button click
+  musicToggle.addEventListener('click', toggleMusic);
+
+  // Auto-play on first user interaction part
+  
+  function autoPlayMusic() {
+    if (!isPlaying) {
+      bgMusic.play().then(() => {
+        musicToggle.classList.add('playing');
+        isPlaying = true;
+      }).catch(e => console.log('Auto-play prevented:', e));
+    }
+    document.removeEventListener('click', autoPlayMusic);
+    document.removeEventListener('scroll', autoPlayMusic);
+  }
+  document.addEventListener('click', autoPlayMusic, { once: true });
+  document.addEventListener('scroll', autoPlayMusic, { once: true });
+  
 </script>
 </body>
 </html>
