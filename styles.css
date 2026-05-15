@@ -495,6 +495,49 @@ body {
   z-index: 2;
 }
 
+@media (max-width: 768px) {
+  .gallery-track-wrap {
+    padding: 1rem 1.25rem 2rem;
+  }
+
+  .gallery-track {
+    gap: 1rem;
+    width: auto;
+    padding: 0;
+  }
+
+  .gallery-track-wrap {
+    scroll-snap-type: x mandatory;
+  }
+
+  .polaroid {
+    width: min(88vw, 260px);
+    padding: 10px 10px 44px;
+    transform: none !important;
+    margin-top: 0 !important;
+    scroll-snap-align: center;
+  }
+
+  .polaroid:hover {
+    transform: scale(1.03) !important;
+  }
+
+  .polaroid:nth-child(1),
+  .polaroid:nth-child(2),
+  .polaroid:nth-child(3),
+  .polaroid:nth-child(4),
+  .polaroid:nth-child(5),
+  .polaroid:nth-child(6) {
+    width: min(88vw, 260px);
+    transform: none !important;
+    margin-top: 0 !important;
+  }
+
+  .gallery-nav {
+    padding: 0 1rem;
+  }
+}
+
 .polaroid-img {
   width: 100%;
   aspect-ratio: 1;
