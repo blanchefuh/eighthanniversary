@@ -3,1083 +3,275 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pat & Missy — 8 Years 🤍</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-:root {
-  --pink: #E8617A;
-  --pink-soft: #F9DEE3;
-  --pink-pale: #FEF5F7;
-  --peach: #F4A96A;
-  --peach-soft: #FDE8D4;
-  --lavender: #B084CC;
-  --lav-soft: #EFE3F9;
-  --cream: #FFFAF7;
-  --dark: #1E1018;
-  --mid: #6B3F52;
-  --soft: #C49AAA;
-}
-
-html { scroll-behavior: smooth; }
-body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--dark); overflow-x: hidden; }
-
-/* ── HERO ── */
-.hero {
-  min-height: 100vh;
-  display: grid;
-  place-items: center;
-  text-align: center;
-  padding: 3rem 2rem 5rem;
-  background: var(--dark);
-  position: relative;
-  overflow: hidden;
-}
-
-.hero-photo {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, #ffb3c1 0%, #ff8fab 25%, #fb6f92 50%, #e8617a 75%, #d14a5d 100%);
-}
-
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(20, 8, 14, 0.55) 0%,
-    rgba(20, 8, 14, 0.45) 50%,
-    rgba(20, 8, 14, 0.72) 100%
-  );
-}
-
-.hero-slideshow {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  animation: photoReveal 1.8s ease 0.2s forwards;
-}
-
-.slide {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 1.5s ease-in-out;
-}
-
-.slide.active {
-  opacity: 0.4;
-}
-
-.slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: blur(1px) brightness(0.8);
-}
-
-@keyframes photoReveal {
-  from { opacity: 0; transform: scale(1.04); }
-  to   { opacity: 1; transform: scale(1); }
-}
-
-.confetti-dot {
-  position: absolute;
-  border-radius: 50%;
-  opacity: 0;
-  animation: floatDot linear infinite;
-  pointer-events: none;
-}
-
-@keyframes floatDot {
-  0%   { transform: translateY(110vh) rotate(0deg); opacity: 0; }
-  8%   { opacity: 0.6; }
-  92%  { opacity: 0.6; }
-  100% { transform: translateY(-80px) rotate(720deg); opacity: 0; }
-}
-
-.hero-inner { position: relative; z-index: 1; }
-
-.since-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(232,97,122,0.15);
-  color: var(--pink);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  padding: 7px 18px;
-  border-radius: 100px;
-  border: 1px solid rgba(232,97,122,0.25);
-  margin-bottom: 2rem;
-  opacity: 0;
-  animation: popIn 0.6s cubic-bezier(.34,1.56,.64,1) 0.5s forwards;
-}
-
-.since-pill::before { content: '✦'; font-size: 0.75em; }
-
-.hero-big-year {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(6rem, 22vw, 16rem);
-  font-weight: 300;
-  line-height: 1.05;
-  padding-bottom: 0.05em;
-  color: white;
-  opacity: 0;
-  animation: fadeUp 1s ease 0.7s forwards;
-  letter-spacing: -0.04em;
-}
-
-.hero-big-year em {
-  font-style: italic;
-  color: var(--pink);
-}
-
-.hero-tagline {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.1rem, 3vw, 1.6rem);
-  font-style: italic;
-  font-weight: 300;
-  color: rgba(255,255,255,0.5);
-  margin-top: 0.6rem;
-  opacity: 0;
-  animation: fadeUp 0.9s ease 1s forwards;
-  letter-spacing: 0.02em;
-}
-
-.hero-tagline strong {
-  color: rgba(255,255,255,0.85);
-  font-weight: 400;
-  font-style: normal;
-}
-
-.hero-date-strip {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1.5rem;
-  margin-top: 2.8rem;
-  opacity: 0;
-  animation: fadeUp 0.9s ease 1.2s forwards;
-  flex-wrap: wrap;
-}
-
-.date-block { text-align: center; }
-
-.date-num {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 2.4rem;
-  font-weight: 600;
-  color: white;
-  line-height: 1;
-}
-
-.date-label {
-  font-size: 0.58rem;
-  font-weight: 500;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.3);
-  margin-top: 3px;
-}
-
-.date-sep {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.6rem;
-  color: rgba(232,97,122,0.4);
-  font-style: italic;
-}
-
-.scroll-cue {
-  position: relative;
-  margin-top: 2.5rem;
-  font-size: 0.6rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.25);
-  opacity: 0;
-  animation: fadeIn 1s ease 2s forwards;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  white-space: nowrap;
-}
-
-.scroll-arrow {
-  width: 1px;
-  height: 36px;
-  background: linear-gradient(to bottom, var(--pink), transparent);
-  animation: bounce 1.8s ease-in-out infinite;
-}
-
-@keyframes bounce {
-  0%, 100% { transform: scaleY(1); }
-  50%       { transform: scaleY(1.2); }
-}
-
-/* ── GALLERY ── */
-.gallery-section { padding: 5rem 0 4rem; background: white; }
-
-.section-tag {
-  font-size: 0.65rem;
-  font-weight: 500;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--peach);
-  display: block;
-  text-align: center;
-  margin-bottom: 0.6rem;
-}
-
-.section-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2rem, 5vw, 3.2rem);
-  font-weight: 300;
-  text-align: center;
-  color: var(--dark);
-  margin-bottom: 3rem;
-  padding: 0 2rem;
-}
-
-.section-title em { font-style: italic; color: var(--pink); }
-
-/* Masonry-ish staggered row */
-.gallery-scroll {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  touch-action: pan-x;
-  cursor: grab;
-  user-select: none;
-  scrollbar-width: none;
-  padding: 1rem 2rem 2rem;
-}
-.gallery-scroll, .gallery-scroll * { cursor: grab; }
-.gallery-scroll::-webkit-scrollbar { display: none; }
-.gallery-scroll:active, .gallery-scroll *:active { cursor: grabbing; }
-
-.gallery-row {
-  display: flex;
-  gap: 1.2rem;
-  width: max-content;
-  align-items: flex-start;
-}
-
-.polaroid {
-  flex: 0 0 auto;
-  background: white;
-  padding: 12px 12px 40px;
-  box-shadow: 0 4px 24px rgba(30,16,24,0.1), 0 1px 4px rgba(30,16,24,0.06);
-  position: relative;
-  transition: transform 0.4s cubic-bezier(.34,1.2,.64,1);
-}
-
-.polaroid:hover { transform: rotate(0deg) scale(1.04) !important; }
-
-.polaroid:nth-child(1) { transform: rotate(-2.5deg); width: 240px; }
-.polaroid:nth-child(2) { transform: rotate(1.8deg); width: 280px; margin-top: 30px; }
-.polaroid:nth-child(3) { transform: rotate(-1.2deg); width: 260px; margin-top: -10px; }
-.polaroid:nth-child(4) { transform: rotate(2.5deg); width: 240px; margin-top: 20px; }
-.polaroid:nth-child(5) { transform: rotate(-1.8deg); width: 270px; margin-top: -5px; }
-.polaroid:nth-child(6) { transform: rotate(1.2deg); width: 250px; margin-top: 15px; }
-
-.photo-area {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  background: var(--pink-soft);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  position: relative;
-}
-
-.polaroid:nth-child(2) .photo-area { background: var(--lav-soft); }
-.polaroid:nth-child(3) .photo-area { background: var(--peach-soft); }
-.polaroid:nth-child(4) .photo-area { background: var(--lav-soft); }
-.polaroid:nth-child(5) .photo-area { background: var(--pink-soft); }
-.polaroid:nth-child(6) .photo-area { background: var(--peach-soft); }
-
-.photo-area img { width: 100%; height: 100%; object-fit: cover; }
-
-.photo-icon { opacity: 0.35; color: var(--pink); }
-
-.polaroid-caption {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 10px;
-}
-
-.polaroid-text {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.4 rem;
-  font-style: italic;
-  color: var(--mid);
-  text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.gallery-nav {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-  margin-top: 1.5rem;
-}
-
-.nav-btn {
-  width: 40px; height: 40px;
-  border-radius: 50%;
-  border: 1.5px solid var(--pink-soft);
-  background: white;
-  color: var(--pink);
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.25s;
-  display: flex; align-items: center; justify-content: center;
-}
-.nav-btn:hover { background: var(--pink); color: white; border-color: var(--pink); }
-
-.progress-dots {
-  display: flex;
-  gap: 6px;
-}
-
-.progress-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--pink-soft);
-  transition: background 0.3s, width 0.3s;
-}
-
-.progress-dot.active { background: var(--pink); width: 20px; border-radius: 3px; }
-
-/* ── COUNTER STRIP ── */
-.counter-strip {
-  background: var(--dark);
-  padding: 3.5rem 2rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 2rem;
-  text-align: center;
-}
-
-.count-num {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2.8rem, 6vw, 4.5rem);
-  font-weight: 300;
-  color: white;
-  line-height: 1;
-}
-
-.count-num span {
-  font-style: italic;
-  color: var(--pink);
-}
-
-.count-label {
-  font-size: 0.62rem;
-  font-weight: 500;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--soft);
-  margin-top: 6px;
-}
-
-/* ── LOVE NOTES ── */
-.notes-section { padding: 5rem 2rem; background: var(--cream); }
-
-.notes-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1rem;
-  max-width: 860px;
-  margin: 0 auto;
-}
-
-.note-card {
-  background: white;
-  border-radius: 16px;
-  padding: 1.8rem 1.6rem;
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.3s ease;
-  border: 1.5px solid transparent;
-}
-
-.note-card:hover { transform: translateY(-4px); }
-.note-card:nth-child(1) { border-color: var(--pink-soft); }
-.note-card:nth-child(2) { border-color: var(--lav-soft); background: #FDFAFF; }
-.note-card:nth-child(3) { border-color: var(--peach-soft); }
-.note-card:nth-child(4) { border-color: var(--lav-soft); background: #FDFAFF; }
-.note-card:nth-child(5) { border-color: var(--pink-soft); }
-.note-card:nth-child(6) { border-color: var(--peach-soft); }
-.note-card:nth-child(7) { border-color: var(--lav-soft); background: #FDFAFF; }
-.note-card:nth-child(8) { border-color: var(--pink-soft); }
-.note-card:nth-child(9) { border-color: var(--peach-soft); }
-.note-emoji {
-  font-size: 1.5rem;
-  margin-bottom: 0.8rem;
-  display: block;
-}
-
-.note-text {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.1rem;
-  font-style: italic;
-  color: var(--mid);
-  line-height: 1.7;
-}
-
-/* ── REFLECTION ── */
-.reflection-section {
-  padding: 5rem 2rem;
-  background: linear-gradient(135deg, rgba(232, 97, 122, 0.08) 0%, rgba(180, 132, 204, 0.05) 100%);
-  text-align: center;
-  position: relative;
-}
-
-.reflection-inner {
-  max-width: 640px;
-  margin: 0 auto;
-}
-
-.reflection-text {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.2rem, 3vw, 1.8rem);
-  font-style: italic;
-  font-weight: 300;
-  color: var(--mid);
-  line-height: 1.9;
-}
-
-/* ── CLOSING ── */
-.closing {
-  padding: 6rem 2rem 5rem;
-  background: var(--pink);
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.closing::before {
-  content: '';
-  position: absolute;
-  width: 600px; height: 600px;
-  background: rgba(255,255,255,0.06);
-  border-radius: 50%;
-  top: -200px; left: -150px;
-}
-
-.closing::after {
-  content: '';
-  position: absolute;
-  width: 400px; height: 400px;
-  background: rgba(255,255,255,0.05);
-  border-radius: 50%;
-  bottom: -150px; right: -100px;
-}
-
-.closing-inner { position: relative; z-index: 1; }
-
-.closing-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(3rem, 10vw, 7rem);
-  font-weight: 300;
-  color: white;
-  line-height: 0.95;
-}
-
-.closing-title em { font-style: italic; color: rgba(255,255,255,0.7); }
-
-.closing-msg {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-  font-style: italic;
-  font-weight: 300;
-  color: rgba(255,255,255,0.75);
-  margin-top: 1.5rem;
-  line-height: 1.6;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.closing-hearts {
-  margin-top: 2.5rem;
-  font-size: 2rem;
-  letter-spacing: 0.4rem;
-  animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-}
-
-/* REVEALS */
-.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
-.reveal.visible { opacity: 1; transform: none; }
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(22px); }
-  to { opacity: 1; transform: none; }
-}
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-@keyframes popIn {
-  from { opacity: 0; transform: scale(0.85); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-/* ── MUSIC TOGGLE ── */
-.music-toggle {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: var(--pink);
-  border: none;
-  cursor: pointer;
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 20px rgba(232, 97, 122, 0.4), 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s cubic-bezier(.34,1.2,.64,1);
-  animation: popIn 0.6s cubic-bezier(.34,1.56,.64,1) 2.5s forwards;
-  opacity: 0;
-}
-
-.music-toggle:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 28px rgba(232, 97, 122, 0.5), 0 3px 12px rgba(0, 0, 0, 0.15);
-}
-
-.music-toggle:active {
-  transform: scale(0.95);
-}
-
-.music-icon {
-  width: 24px;
-  height: 24px;
-  color: white;
-  position: absolute;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.music-toggle .play-icon {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.music-toggle .pause-icon {
-  opacity: 0;
-  transform: scale(0.8);
-}
-
-.music-toggle.playing .play-icon {
-  opacity: 0;
-  transform: scale(0.8);
-}
-
-.music-toggle.playing .pause-icon {
-  opacity: 1;
-  transform: scale(1);
-}
-
-/* ── MOBILE RESPONSIVE ── */
-@media (max-width: 600px) {
-  /* Hero adjustments */
-  .hero { padding: 2rem 1.5rem 4rem; }
-  
-  .since-pill {
-    font-size: 0.65rem;
-    padding: 6px 14px;
-    margin-bottom: 1.5rem;
-  }
-  
-  .hero-date-strip {
-    gap: 1rem;
-    margin-top: 2rem;
-  }
-  
-  .date-num { font-size: 1.8rem; }
-  
-  .date-sep { 
-    font-size: 1.2rem;
-    display: none; /* Hide separators on very small screens */
-  }
-  
-  /* Gallery adjustments */
-  .gallery-section { padding: 4rem 0 3rem; }
-  
-  .polaroid { 
-    width: 200px !important; 
-    padding: 10px 10px 35px;
-  }
-  
-  .polaroid-caption { height: 35px; }
-  
-  .polaroid-text { font-size: 0.75rem; }
-  
-  /* Counter strip */
-  .counter-strip {
-    padding: 3rem 1.5rem;
-    gap: 1.5rem;
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .count-label {
-    font-size: 0.55rem;
-    letter-spacing: 0.18em;
-  }
-  
-  /* Notes grid */
-  .notes-section { padding: 4rem 1.5rem; }
-  
-  .notes-grid {
-    grid-template-columns: 1fr;
-    gap: 0.8rem;
-  }
-  
-  .note-card { padding: 1.5rem 1.3rem; }
-  
-  .note-text { font-size: 1rem; }
-  
-  /* Reflection */
-  .reflection-section { padding: 4rem 1.5rem; }
-  
-  /* Closing */
-  .closing { padding: 5rem 1.5rem 4rem; }
-  
-  .closing-msg {
-    padding: 0 1rem;
-  }
-  
-  /* Music toggle */
-  .music-toggle {
-    bottom: 1.5rem;
-    right: 1.5rem;
-    width: 50px;
-    height: 50px;
-  }
-  
-  .music-icon {
-    width: 20px;
-    height: 20px;
-  }
-}
-
-/* Extra small phones */
-@media (max-width: 380px) {
-  .hero-date-strip {
-    flex-direction: column;
-    gap: 0.8rem;
-  }
-  
-  .date-sep { display: none; }
-  
-  .polaroid { width: 180px !important; }
-  
-  .counter-strip {
-    grid-template-columns: 1fr;
-  }
-  
-  .notes-grid {
-    grid-template-columns: 1fr;
-  }
-}
-</style>
+<title>Pat & Missy — 8 Years</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Jost:wght@200;300;400;500&family=Dawning+of+a+New+Day&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<!-- Background Music -->
+<!-- Grain overlay -->
+<div class="grain"></div>
+
+<!-- Music -->
 <audio id="bgMusic" loop>
-  <source src="background-music.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
+  <source src="background-music (2).mp3" type="audio/mpeg">
 </audio>
 
-<!-- Music Control Button -->
 <button id="musicToggle" class="music-toggle" aria-label="Toggle music">
-  <svg class="music-icon play-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-    <polygon points="5 3 19 12 5 21 5 3"></polygon>
-  </svg>
-  <svg class="music-icon pause-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-    <rect x="6" y="4" width="4" height="16"></rect>
-    <rect x="14" y="4" width="4" height="16"></rect>
-  </svg>
+  <span class="music-label">♫</span>
 </button>
 
-<!-- HERO -->
+<!-- ═══════════════════════════════════════
+     CINEMATIC HERO
+═══════════════════════════════════════ -->
 <section class="hero" id="hero">
-  <div class="hero-photo"></div>
-  <div class="hero-overlay"></div>
 
-  <!-- Photo Slideshow -->
-  <div class="hero-slideshow">
-    <div class="slide active">
-      <img src="photo7.jpg" alt="Memory photo 7">
-    </div>
-    <div class="slide">
-      <img src="photo8.jpg" alt="Memory photo 8">
-    </div>
-    <div class="slide">
-      <img src="photo9.jpg" alt="Memory photo 9">
-    </div>
-    <div class="slide">
-      <img src="photo10.jpg" alt="Memory photo 10">
-    </div>
-    <div class="slide">
-      <img src="photo11.jpg" alt="Memory photo 11">
-    </div>
-    <div class="slide">
-      <img src="photo12.jpg" alt="Memory photo 12">
-    </div>
-    <div class="slide">
-      <img src="photo13.jpg" alt="Memory photo 13">
-    </div>
-    <div class="slide">
-      <img src="photo14.jpg" alt="Memory photo 14">
-    </div>
-    <div class="slide">
-      <img src="photo15.jpg" alt="Memory photo 15">
-    </div>
+  <!-- Slideshow -->
+  <div class="hero-slideshow" id="heroSlideshow">
+    <div class="slide active"><img src="photo7.jpg" alt=""></div>
+    <div class="slide"><img src="photo8.jpg" alt=""></div>
+    <div class="slide"><img src="photo9.jpg" alt=""></div>
+    <div class="slide"><img src="photo10.jpg" alt=""></div>
+    <div class="slide"><img src="photo11.jpg" alt=""></div>
+    <div class="slide"><img src="photo12.jpg" alt=""></div>
+    <div class="slide"><img src="photo13.jpg" alt=""></div>
+    <div class="slide"><img src="photo14.jpg" alt=""></div>
+    <div class="slide"><img src="photo15.jpg" alt=""></div>
   </div>
 
-  <div class="hero-inner">
-    <div class="since-pill">Since May 18, 2018</div>
+  <!-- Color wash gradient always visible -->
+  <div class="hero-wash"></div>
+  <!-- Dark vignette -->
+  <div class="hero-vignette"></div>
 
-    <div class="hero-big-year"><em>8</em> years</div>
-
-    <p class="hero-tagline">of choosing <strong>each other</strong>, every single day</p>
-
-    <div class="hero-date-strip">
-      <div class="date-block">
-        <div class="date-num">18</div>
-        <div class="date-label">May</div>
-      </div>
-      <div class="date-sep">·</div>
-      <div class="date-block">
-        <div class="date-num">2018</div>
-        <div class="date-label">The beginning</div>
-      </div>
-      <div class="date-sep">·</div>
-      <div class="date-block">
-        <div class="date-num">2026</div>
-        <div class="date-label">Right now</div>
-      </div>
-    </div>
+  <!-- Top bar -->
+  <div class="hero-topbar">
+    <span class="topbar-item">Pat &amp; Missy</span>
+    <span class="topbar-dot">·</span>
+    <span class="topbar-item">Est. May 18, 2018</span>
   </div>
 
+  <!-- Main content -->
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="eyebrow-line"></span>
+      <span class="eyebrow-text">eight years</span>
+      <span class="eyebrow-line"></span>
+    </div>
+
+    <h1 class="hero-title">
+      <em>Still</em><br>
+      choosing<br>
+      <em>you.</em>
+    </h1>
+
+    <p class="hero-sub">May 18, 2018 &ensp;—&ensp; May 18, 2026</p>
+  </div>
+
+  <!-- Slide progress bars -->
+  <div class="hero-progress" id="heroProgress"></div>
+
+  <!-- Corner date ornament -->
+  <div class="hero-corner-num">08</div>
+
+  <!-- Scroll cue -->
   <div class="scroll-cue">
-    our story
-    <div class="scroll-arrow"></div>
+    <div class="scroll-line"></div>
+    <span>scroll</span>
   </div>
+
 </section>
 
-<!-- PHOTO GALLERY -->
+
+<!-- ═══════════════════════════════════════
+     STAT RIBBON
+═══════════════════════════════════════ -->
+<div class="stat-ribbon">
+  <div class="stat-item reveal-up">
+    <div class="stat-num"><span id="years-count">0</span></div>
+    <div class="stat-label">Years</div>
+  </div>
+  <div class="stat-divider">✦</div>
+  <div class="stat-item reveal-up" style="--d:.1s">
+    <div class="stat-num"><span id="months-count">0</span></div>
+    <div class="stat-label">Months</div>
+  </div>
+  <div class="stat-divider">✦</div>
+  <div class="stat-item reveal-up" style="--d:.2s">
+    <div class="stat-num"><span id="days-count">0</span></div>
+    <div class="stat-label">Days</div>
+  </div>
+  <div class="stat-divider">✦</div>
+  <div class="stat-item reveal-up" style="--d:.3s">
+    <div class="stat-num">∞</div>
+    <div class="stat-label">Reasons</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     GALLERY
+═══════════════════════════════════════ -->
 <section class="gallery-section">
-  <span class="section-tag reveal">Our memories</span>
-  <h2 class="section-title reveal">Look how far we've <em>come</em></h2>
+  <div class="section-header reveal-up">
+    <p class="section-kicker">Our Memories</p>
+    <h2 class="section-heading">Look how far we've <em>come</em></h2>
+  </div>
 
-  <div class="gallery-scroll" id="galleryScroll">
-    <div class="gallery-row" id="galleryRow">
+  <div class="gallery-track-wrap">
+    <div class="gallery-track" id="galleryTrack">
 
-      <div class="polaroid">
-        <div class="photo-area">
-          <img src="photo1.jpg" alt="Memory photo">
-        </div>
-        <div class="polaroid-caption"><p class="polaroid-text">the very first one</p></div>
-      </div>
+      <figure class="polaroid">
+        <div class="polaroid-img"><img src="photo1.jpg" alt=""></div>
+        <figcaption>the very first one</figcaption>
+      </figure>
 
-      <div class="polaroid">
-        <div class="photo-area">
-          <img src="photo2.jpg" alt="Memory photo">
-        </div>
-        <div class="polaroid-caption"><p class="polaroid-text">adventures together</p></div>
-      </div>
+      <figure class="polaroid">
+        <div class="polaroid-img"><img src="photo2.jpg" alt=""></div>
+        <figcaption>adventures together</figcaption>
+      </figure>
 
-      <div class="polaroid">
-        <div class="photo-area">
-          <img src="photo3.jpg" alt="Memory photo">
-        </div>
-        <div class="polaroid-caption"><p class="polaroid-text">stolen glances</p></div>
-      </div>
+      <figure class="polaroid">
+        <div class="polaroid-img"><img src="photo3.jpg" alt=""></div>
+        <figcaption>stolen glances</figcaption>
+      </figure>
 
-      <div class="polaroid">
-        <div class="photo-area">
-          <img src="photo4.jpg" alt="Memory photo">
-        </div>
-        <div class="polaroid-caption"><p class="polaroid-text">our quiet moments</p></div>
-      </div>
+      <figure class="polaroid">
+        <div class="polaroid-img"><img src="photo4.jpg" alt=""></div>
+        <figcaption>our quiet moments</figcaption>
+      </figure>
 
-      <div class="polaroid">
-        <div class="photo-area">
-          <img src="photo5.jpg" alt="Memory photo">
-        </div>
-        <div class="polaroid-caption"><p class="polaroid-text">celebrating us</p></div>
-      </div>
+      <figure class="polaroid">
+        <div class="polaroid-img"><img src="photo5.jpg" alt=""></div>
+        <figcaption>celebrating us</figcaption>
+      </figure>
 
-      <div class="polaroid">
-        <div class="photo-area">
-          <img src="photo6.jpg" alt="Memory photo">
-        </div>
-        <div class="polaroid-caption"><p class="polaroid-text">year 8 & forever</p></div>
-      </div>
+      <figure class="polaroid">
+        <div class="polaroid-img"><img src="photo6.jpg" alt=""></div>
+        <figcaption>year 8 &amp; forever</figcaption>
+      </figure>
 
     </div>
   </div>
 
   <div class="gallery-nav">
-    <button class="nav-btn" id="prevBtn">&#8592;</button>
-    <div class="progress-dots">
-      <div class="progress-dot active" id="dot0"></div>
-      <div class="progress-dot" id="dot1"></div>
-      <div class="progress-dot" id="dot2"></div>
-      <div class="progress-dot" id="dot3"></div>
-      <div class="progress-dot" id="dot4"></div>
-      <div class="progress-dot" id="dot5"></div>
+    <button class="gnav-btn" id="prevBtn">&#8592;</button>
+    <div class="gnav-dots" id="gnavDots">
+      <span class="gdot active"></span>
+      <span class="gdot"></span>
+      <span class="gdot"></span>
+      <span class="gdot"></span>
+      <span class="gdot"></span>
+      <span class="gdot"></span>
     </div>
-    <button class="nav-btn" id="nextBtn">&#8594;</button>
+    <button class="gnav-btn" id="nextBtn">&#8594;</button>
   </div>
 </section>
 
-<!-- COUNTER STRIP -->
-<div class="counter-strip reveal">
-  <div class="count-item">
-    <div class="count-num"><span id="years-count">0</span></div>
-    <div class="count-label">Years together</div>
-  </div>
-  <div class="count-item">
-    <div class="count-num"><span id="months-count">0</span></div>
-    <div class="count-label">Months of love</div>
-  </div>
-  <div class="count-item">
-    <div class="count-num"><span id="days-count">0</span></div>
-    <div class="count-label">Days by your side</div>
-  </div>
-  <div class="count-item">
-    <div class="count-num">∞</div>
-    <div class="count-label">Reasons I love you</div>
-  </div>
-</div>
 
-<!-- LOVE NOTES -->
+<!-- ═══════════════════════════════════════
+     LOVE NOTES — EDITORIAL GRID
+═══════════════════════════════════════ -->
 <section class="notes-section">
-  <span class="section-tag reveal">little things</span>
-  <h2 class="section-title reveal">I love about <em>you</em></h2>
+  <div class="notes-intro reveal-up">
+    <p class="section-kicker">Little things</p>
+    <h2 class="section-heading">I love about <em>you</em></h2>
+  </div>
 
   <div class="notes-grid">
-    <div class="note-card reveal">
-      <p class="note-text">The way you laugh — hands clapping, no holding back.</p>
+
+    <div class="note large reveal-up">
+      <span class="note-num">01</span>
+      <p>The way you laugh — hands clapping, no holding back.</p>
     </div>
-    <div class="note-card reveal">
-      <p class="note-text">When you include me in your plans, even the smallest ones (skin care routine).</p>
+
+    <div class="note reveal-up" style="--d:.08s">
+      <span class="note-num">02</span>
+      <p>When you include me in your plans, even the smallest ones — like your skin care routine.</p>
     </div>
-    <div class="note-card reveal">
-      <p class="note-text">You show up for everyone you love, every single time. Without fail.</p>
+
+    <div class="note reveal-up" style="--d:.16s">
+      <span class="note-num">03</span>
+      <p>You show up for everyone you love, every single time. Without fail.</p>
     </div>
-    <div class="note-card reveal">
-      <p class="note-text">Your incomparable humor brightens even the ordinary moments.</p>
+
+    <div class="note accent reveal-up" style="--d:.04s">
+      <span class="note-num">04</span>
+      <p>Your incomparable humor brightens even the most ordinary moments.</p>
     </div>
-    <div class="note-card reveal">
-      <p class="note-text">The way you keep things tidy — not because you have to, but because it makes you feel good.</p>
+
+    <div class="note reveal-up" style="--d:.12s">
+      <span class="note-num">05</span>
+      <p>The way you keep things tidy — not because you have to, but because it makes you feel good.</p>
     </div>
-    <div class="note-card reveal">
-      <p class="note-text">How you love your coffee black and strong and make me drink it too.</p>
+
+    <div class="note reveal-up" style="--d:.2s">
+      <span class="note-num">06</span>
+      <p>How you love your coffee black and strong — and somehow made me love it too.</p>
     </div>
-    <div class="note-card reveal">
-      <p class="note-text">Your love for oranges (the fruit) and strawberries (coz it's aesthetic)</p>
+
+    <div class="note reveal-up" style="--d:.06s">
+      <span class="note-num">07</span>
+      <p>Your love for oranges and strawberries (ifykyk)</p>
     </div>
-    <div class="note-card reveal">
-      <p class="note-text">Your smile when we're wrapped up together, soft and real and just for me.</p>
+
+    <div class="note large-alt reveal-up" style="--d:.14s">
+      <span class="note-num">08</span>
+      <p>Your smile when we're wrapped up together — soft and real and just for me.</p>
     </div>
-    <div class="note-card reveal">
-      <p class="note-text">The way you smell — it's uniquely you, and it's my favorite thing in the world.</p>
+
+    <div class="note reveal-up" style="--d:.22s">
+      <span class="note-num">09</span>
+      <p>When you buy the things that remind you of me.</p>
     </div>
+
   </div>
 </section>
 
-<!-- REFLECTION -->
-<section class="reflection-section">
-  <div class="reflection-inner">
-    <p class="reflection-text reveal">
+
+<!-- ═══════════════════════════════════════
+     LETTER / REFLECTION
+═══════════════════════════════════════ -->
+<section class="letter-section">
+  <div class="letter-decoration">✦</div>
+  <div class="letter-inner">
+    <p class="letter-kicker reveal-up">A note, just for you</p>
+    <blockquote class="letter-body reveal-up" style="--d:.1s">
       Eight years in, and we're still growing together.<br><br>
-      Through the shifting seasons of my life, your presence remains my constant, my choice, my truth.<br><br>
-      I'd choose you again. And again. In every version of my life.<br>
+      Through the shifting seasons of my life, your presence remains<br>
+      my constant, my choice, my truth.<br><br>
+      I'd choose you again. And again.<br>
+      In every version of my life.<br>
       In every alternate universe.
-    </p>
+    </blockquote>
+    <p class="letter-sig reveal-up" style="--d:.2s">— always yours, Pat</p>
   </div>
+  <div class="letter-decoration">✦</div>
 </section>
 
-<!-- CLOSING -->
+
+<!-- ═══════════════════════════════════════
+     CLOSING
+═══════════════════════════════════════ -->
 <section class="closing">
+
+  <!-- Animated rose petals -->
+  <div class="petals" id="petals"></div>
+
   <div class="closing-inner">
-    <h2 class="closing-title">Happy <em>Anniversary, Babe!</em></h2>
-    <p class="closing-msg">Here's to May 18th — and every day after it. I love you, through thick and thin.</p>
-    <div class="closing-hearts">· · ·</div>
+    <p class="closing-kicker reveal-up">May 18, 2026</p>
+    <h2 class="closing-title reveal-up" style="--d:.1s">
+      Happy<br><em>Anniversary,</em><br>Babe!
+    </h2>
+    <p class="closing-msg reveal-up" style="--d:.2s">
+      Here's to May 18th — and every day after it.<br>
+      I will love you 'til they take my heart away.
+    </p>
+    <div class="closing-ornament reveal-up" style="--d:.3s">· · ·</div>
   </div>
+
 </section>
 
-<script>
-  // Scroll reveal
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-  // Counter strip animation
-  const start = new Date('2018-05-18');
-  const now = new Date();
-  const diffMs = now - start;
-  const totalDays = Math.floor(diffMs / 86400000);
-  const totalMonths = Math.floor(diffMs / (86400000 * 30.44));
-  const totalYears = 8;
-
-  function animateCount(el, target, duration) {
-    const step = target / (duration / 16);
-    let current = 0;
-    const timer = setInterval(() => {
-      current = Math.min(current + step, target);
-      el.textContent = Math.floor(current).toLocaleString();
-      if (current >= target) clearInterval(timer);
-    }, 16);
-  }
-
-  const counterStrip = document.querySelector('.counter-strip');
-  const counterIo = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        animateCount(document.getElementById('years-count'), totalYears, 1000);
-        animateCount(document.getElementById('months-count'), totalMonths, 1200);
-        animateCount(document.getElementById('days-count'), totalDays, 1500);
-        counterIo.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.3 });
-  counterIo.observe(counterStrip);
-
-  // Gallery drag + nav
-  const scroll = document.getElementById('galleryScroll');
-  let isDown = false, startX, sl;
-  scroll.addEventListener('mousedown', e => {
-    isDown = true;
-    startX = e.pageX - scroll.offsetLeft;
-    sl = scroll.scrollLeft;
-  });
-  document.addEventListener('mouseup', () => { isDown = false; });
-  document.addEventListener('mousemove', e => {
-    if (!isDown) return;
-    e.preventDefault();
-    scroll.scrollLeft = sl - (e.pageX - scroll.offsetLeft - startX);
-  });
-
-  let touchSX;
-  scroll.addEventListener('touchstart', e => { touchSX = e.touches[0].clientX; }, { passive: true });
-  scroll.addEventListener('touchmove', e => {
-    scroll.scrollLeft += (touchSX - e.touches[0].clientX) * 0.8;
-    touchSX = e.touches[0].clientX;
-  }, { passive: true });
-
-  const cardW = 280;
-  let currentCard = 0;
-  const totalCards = 6;
-
-  function updateDots(idx) {
-    for (let i = 0; i < totalCards; i++) {
-      document.getElementById('dot' + i).className = 'progress-dot' + (i === idx ? ' active' : '');
-    }
-  }
-
-  document.getElementById('nextBtn').addEventListener('click', () => {
-    currentCard = Math.min(currentCard + 1, totalCards - 1);
-    scroll.scrollBy({ left: cardW, behavior: 'smooth' });
-    updateDots(currentCard);
-  });
-
-  document.getElementById('prevBtn').addEventListener('click', () => {
-    currentCard = Math.max(currentCard - 1, 0);
-    scroll.scrollBy({ left: -cardW, behavior: 'smooth' });
-    updateDots(currentCard);
-  });
-
-  scroll.addEventListener('scroll', () => {
-    const idx = Math.round(scroll.scrollLeft / cardW);
-    currentCard = Math.min(idx, totalCards - 1);
-    updateDots(currentCard);
-  });
-
-  // Hero Slideshow
-  const slides = document.querySelectorAll('.slide');
-  let currentSlide = 0;
-
-  function showSlide(index) {
-    slides.forEach((slide, i) => {
-      slide.classList.toggle('active', i === index);
-    });
-  }
-
-  function nextSlide() {
-    currentSlide = (currentSlide + 1) % slides.length;
-    showSlide(currentSlide);
-  }
-
-  // Start slideshow
-  showSlide(0);
-  setInterval(nextSlide, 3000); // Change slide every 3 seconds
-
-  // Background Music Control
-  const bgMusic = document.getElementById('bgMusic');
-  const musicToggle = document.getElementById('musicToggle');
-  let isPlaying = false;
-
-  // Function to toggle music
-  function toggleMusic() {
-    if (isPlaying) {
-      bgMusic.pause();
-      musicToggle.classList.remove('playing');
-      isPlaying = false;
-    } else {
-      bgMusic.play().catch(e => {
-        console.log('Audio play failed:', e);
-      });
-      musicToggle.classList.add('playing');
-      isPlaying = true;
-    }
-  }
-
-  // Music toggle button click
-  musicToggle.addEventListener('click', toggleMusic);
-
-  // Auto-play on first user interaction part
-  
-  function autoPlayMusic() {
-    if (!isPlaying) {
-      bgMusic.play().then(() => {
-        musicToggle.classList.add('playing');
-        isPlaying = true;
-      }).catch(e => console.log('Auto-play prevented:', e));
-    }
-    document.removeEventListener('click', autoPlayMusic);
-    document.removeEventListener('scroll', autoPlayMusic);
-  }
-  document.addEventListener('click', autoPlayMusic, { once: true });
-  document.addEventListener('scroll', autoPlayMusic, { once: true });
-  
-</script>
+<script src="script.js"></script>
 </body>
 </html>
