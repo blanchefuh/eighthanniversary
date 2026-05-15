@@ -464,30 +464,39 @@ body {
 
 .gallery-track {
   display: flex;
-  gap: 1.8rem;
+  gap: 2rem;
   width: max-content;
-  align-items: flex-start;
-  padding: 1rem 0;
+  align-items: center;
+  padding: 2rem 0;
 }
 
-/* Polaroids */
+/* Polaroids - The Fluid Version */
 .polaroid {
   flex: 0 0 auto;
   background: var(--cream);
   padding: 10px 10px 44px;
-  box-shadow:
-    0 2px 8px rgba(26,16,22,0.08),
-    0 12px 40px rgba(26,16,22,0.12);
+  /* Fluid width: 80% of screen width, but capped at 250px so it's not too big */
+  width: min(80vw, 250px);
+  box-shadow: 0 2px 8px rgba(26,16,22,0.08), 0 12px 40px rgba(26,16,22,0.12);
   transition: transform 0.4s var(--ease-spring), box-shadow 0.4s ease;
   cursor: default;
 }
 
-.polaroid:nth-child(1) { width: 230px; transform: rotate(-2.8deg); }
-.polaroid:nth-child(2) { width: 270px; transform: rotate(1.6deg); margin-top: 30px; }
-.polaroid:nth-child(3) { width: 250px; transform: rotate(-1.2deg); margin-top: -15px; }
-.polaroid:nth-child(4) { width: 240px; transform: rotate(2.4deg); margin-top: 20px; }
-.polaroid:nth-child(5) { width: 260px; transform: rotate(-1.8deg); margin-top: -5px; }
-.polaroid:nth-child(6) { width: 245px; transform: rotate(1.2deg); margin-top: 12px; }
+.polaroid:nth-child(1) { transform: rotate(-2.8deg); }
+.polaroid:nth-child(2) { transform: rotate(1.6deg);  margin-top: 2rem; }
+.polaroid:nth-child(3) { transform: rotate(-1.2deg); margin-top: -1rem; }
+.polaroid:nth-child(4) { transform: rotate(2.4deg);  margin-top: 1.5rem; }
+.polaroid:nth-child(5) { transform: rotate(-1.8deg); margin-top: -0.5rem; }
+.polaroid:nth-child(6) { transform: rotate(1.2deg);  margin-top: 1rem; }
+
+/* Responsive tweaks: Adjust only the margin-top intensity on mobile if needed */
+@media (max-width: 768px) {
+  .polaroid:nth-child(2) { margin-top: 0.5rem; }
+  .polaroid:nth-child(3) { margin-top: 0; }
+  .polaroid:nth-child(4) { margin-top: 0.5rem; }
+  .polaroid:nth-child(5) { margin-top: 0; }
+  .polaroid:nth-child(6) { margin-top: 0.5rem; }
+}
 
 .polaroid:hover {
   transform: rotate(0deg) scale(1.04) !important;
@@ -520,17 +529,6 @@ body {
 
   .polaroid:hover {
     transform: scale(1.03) !important;
-  }
-
-  .polaroid:nth-child(1),
-  .polaroid:nth-child(2),
-  .polaroid:nth-child(3),
-  .polaroid:nth-child(4),
-  .polaroid:nth-child(5),
-  .polaroid:nth-child(6) {
-    width: min(88vw, 260px);
-    transform: none !important;
-    margin-top: 0 !important;
   }
 
   .gallery-nav {

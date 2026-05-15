@@ -97,20 +97,32 @@ setInterval(() => goTo(current + 1), SLIDE_DURATION);
 
 
 /* ─────────────────────────────────────────────
-   GALLERY — drag + nav (mobile-optimized)
+   GALLERY — drag + nav (Fully Responsive)
 ───────────────────────────────────────────── */
 const trackWrap = document.querySelector('.gallery-track-wrap');
 const dots      = document.querySelectorAll('.gdot');
 
-// Responsive card width based on viewport
+// This function now measures the actual width of a polaroid + the gap
 function getCardWidth() {
-  if (window.innerWidth <= 480) return 165; // mobile
-  if (window.innerWidth <= 768) return 195; // tablet
-  return 270; // desktop
+  const polaroid = document.querySelector('.polaroid');
+  if (!polaroid) return 270;
+  
+  // Get the margin/gap between items (1.8rem = ~28.8px)
+  // We use 28 as a safe constant for the gap
+  return polaroid.offsetWidth + 28;
 }
 
 let CARD_W = getCardWidth();
-window.addEventListener('resize', () => { CARD_W = getCardWidth(); });
+
+// Update width on resize with a small delay for performance
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    CARD_W = getCardWidth();
+  }, 200);
+});
+
 
 let activeCard  = 0;
 let dragStart, dragSL, dragging = false;
