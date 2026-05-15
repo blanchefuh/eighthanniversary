@@ -1,6 +1,9 @@
 /* ─────────────────────────────────────────────
-   SCROLL REVEAL
+   SCROLL REVEAL (mobile-optimized)
 ───────────────────────────────────────────── */
+// Higher threshold on mobile for better performance
+const revealThreshold = window.innerWidth <= 768 ? 0.08 : 0.12;
+
 const revealObserver = new IntersectionObserver(
   entries => entries.forEach(e => {
     if (e.isIntersecting) {
@@ -8,7 +11,7 @@ const revealObserver = new IntersectionObserver(
       revealObserver.unobserve(e.target);
     }
   }),
-  { threshold: 0.12 }
+  { threshold: revealThreshold }
 );
 document.querySelectorAll('.reveal-up').forEach(el => revealObserver.observe(el));
 
@@ -49,12 +52,13 @@ counterObs.observe(statRibbon);
 
 
 /* ─────────────────────────────────────────────
-   HERO SLIDESHOW — cinematic cross-fade + progress bars
+   HERO SLIDESHOW — cinematic cross-fade + progress bars (mobile-optimized)
 ───────────────────────────────────────────── */
 const slides        = document.querySelectorAll('.slide');
 const progressWrap  = document.getElementById('heroProgress');
 let current         = 0;
-const SLIDE_DURATION = 4000;
+// Shorter slide duration on mobile for better engagement
+const SLIDE_DURATION = window.innerWidth <= 768 ? 3000 : 4000;
 
 // Build progress bars
 const bars = Array.from({ length: slides.length }, (_, i) => {
@@ -93,35 +97,62 @@ setInterval(() => goTo(current + 1), SLIDE_DURATION);
 
 
 /* ─────────────────────────────────────────────
-   GALLERY — drag + nav
+   GALLERY — drag + nav (mobile-optimized)
 ───────────────────────────────────────────── */
 const trackWrap = document.querySelector('.gallery-track-wrap');
 const dots      = document.querySelectorAll('.gdot');
-const CARD_W    = 270; // approx card + gap
+
+// Responsive card width based on viewport
+function getCardWidth() {
+  if (window.innerWidth <= 480) return 165; // mobile
+  if (window.innerWidth <= 768) return 195; // tablet
+  return 270; // desktop
+}
+
+let CARD_W = getCardWidth();
+window.addEventListener('resize', () => { CARD_W = getCardWidth(); });
+
 let activeCard  = 0;
 let dragStart, dragSL, dragging = false;
+let isTouch = false;
 
+// Mouse drag for desktop
 trackWrap.addEventListener('mousedown', e => {
+  isTouch = false;
   dragging = true;
   dragStart = e.pageX - trackWrap.offsetLeft;
   dragSL    = trackWrap.scrollLeft;
   trackWrap.style.cursor = 'grabbing';
 });
+
 document.addEventListener('mouseup', () => {
-  dragging = false;
-  trackWrap.style.cursor = 'grab';
+  if (!isTouch) {
+    dragging = false;
+    trackWrap.style.cursor = 'grab';
+  }
 });
+
 document.addEventListener('mousemove', e => {
-  if (!dragging) return;
+  if (!dragging || isTouch) return;
   e.preventDefault();
   trackWrap.scrollLeft = dragSL - (e.pageX - trackWrap.offsetLeft - dragStart);
 });
 
+// Touch drag for mobile (passive for better performance)
 let txStart;
-trackWrap.addEventListener('touchstart', e => { txStart = e.touches[0].clientX; }, { passive: true });
-trackWrap.addEventListener('touchmove',  e => {
+trackWrap.addEventListener('touchstart', e => { 
+  isTouch = true;
+  txStart = e.touches[0].clientX; 
+}, { passive: true });
+
+trackWrap.addEventListener('touchmove', e => {
+  if (!isTouch) return;
   trackWrap.scrollLeft += (txStart - e.touches[0].clientX) * 0.9;
   txStart = e.touches[0].clientX;
+}, { passive: true });
+
+trackWrap.addEventListener('touchend', () => {
+  isTouch = false;
 }, { passive: true });
 
 function setDot(i) {
@@ -230,12 +261,17 @@ bgMusic.play().then(() => {
 
 
 /* ─────────────────────────────────────────────
-   PARALLAX — subtle hero depth
+   PARALLAX — subtle hero depth (mobile-optimized)
 ───────────────────────────────────────────── */
 const heroSlideshow = document.getElementById('heroSlideshow');
-window.addEventListener('scroll', () => {
-  const y = window.scrollY;
-  if (y < window.innerHeight) {
-    heroSlideshow.style.transform = `translateY(${y * 0.25}px)`;
-  }
-}, { passive: true });
+const isMobile = window.innerWidth <= 768;
+
+// Disable parallax on mobile for better performance
+if (!isMobile) {
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    if (y < window.innerHeight) {
+      heroSlideshow.style.transform = `translateY(${y * 0.25}px)`;
+    }
+  }, { passive: true });
+}
